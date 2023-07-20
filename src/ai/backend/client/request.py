@@ -5,7 +5,6 @@ import functools
 import io
 import json as modjson
 import logging
-import sys
 from collections import OrderedDict, namedtuple
 from datetime import datetime
 from decimal import Decimal
@@ -597,7 +596,6 @@ class FetchContextManager:
                     continue
             except aiohttp.ClientResponseError as e:
                 msg = "API endpoint response error.\n\u279c {!r}".format(e)
-                await raw_resp.__aexit__(*sys.exc_info())
                 raise BackendClientError(msg) from e
             finally:
                 self.session.config.load_balance_endpoints()
